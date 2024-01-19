@@ -1,4 +1,5 @@
-cmake_minimum_required (VERSION 2.8.11)
+cmake_minimum_required (VERSION 3.12)
+project(flightgear_bridge)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
@@ -7,7 +8,7 @@ find_package(MAVLink)
 
 message(STATUS "${MAVLINK_INCLUDE_DIRS}")
 
-add_executable(flightgear_bridge 
+add_executable(flightgear_bridge
                src/flightgear_bridge.cpp
 			   src/px4_communicator.cpp
 			   src/fg_communicator.cpp
@@ -15,7 +16,7 @@ add_executable(flightgear_bridge
 			   src/geo_mag_declination.cpp
 			   )
 
-target_include_directories(flightgear_bridge 
+target_include_directories(flightgear_bridge
                 BEFORE
                 PUBLIC ${MAVLINK_INCLUDE_DIRS})
 

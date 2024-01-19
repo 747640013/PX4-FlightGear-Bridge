@@ -57,58 +57,62 @@ using namespace std;
 int stop=0;
 void termSignalHandler(int unused)
 {
-    stop=1;
+	stop=1;
 }
 
 void intSignalHandler(int unused)
 {
-   std::cerr<<"Bridge: Signal SIGINT recieve" <<std::endl; 
+   	std::cerr<<"-- Bridge: Signal SIGINT recieve" <<std::endl;
 }
 
 void setup_unix_signals()
 {
-    struct sigaction term;
-    term.sa_handler = termSignalHandler;
-    sigemptyset(&term.sa_mask);
-    term.sa_flags |= SA_RESTART;
+    	struct sigaction term;
+    	term.sa_handler = termSignalHandler;
+    	sigemptyset(&term.sa_mask);
+    	term.sa_flags |= SA_RESTART;
 
-    //shut down by sigTerm
-    if (sigaction(SIGTERM, &term, nullptr))
-       std::cerr<<"Error when setting SIGTERM handler" <<std::endl;
+    	//shut down by sigTerm
+    	if (sigaction(SIGTERM, &term, nullptr))
+    	std::cerr<<"Error when setting SIGTERM handler" <<std::endl;
 
-    //ignore pipe error -rather handle it by if in code
-    signal(SIGPIPE, SIG_IGN);
+    	//ignore pipe error -rather handle it by if in code
+    	signal(SIGPIPE, SIG_IGN);
 
 
-    struct sigaction term2;
-    term2.sa_handler = intSignalHandler;
-    sigemptyset(&term2.sa_mask);
-    term2.sa_flags |= SA_RESTART;
+    	struct sigaction term2;
+    	term2.sa_handler = intSignalHandler;
+    	sigemptyset(&term2.sa_mask);
+	term2.sa_flags |= SA_RESTART;
 
-    if (sigaction(SIGINT, &term2, nullptr))
-       std::cerr<<"Error when setting SIGINT handler" <<std::endl;
+	if (sigaction(SIGINT, &term2, nullptr))
+	std::cerr<<"Error when setting SIGINT handler" <<std::endl;
 
 
 }
 
 int main(int argc, char **argv)
 {
-	cerr << "I'm Mavlink to FlightGear Bridge" << endl;;
-    
+	cerr << "-- I'm Mavlink to FlightGear Bridge" << endl;;
+
 	int delay_us = 2000;
 	bool havePxData = false;
 	bool haveFGData = false;
 	bool sendEveryStep = true;
 
-	cerr << "Targed Bridge Freq: " << 1000000.0 / delay_us << ", send data every step: " << sendEveryStep << std::endl;
+	cerr << "-- Targed Bridge Freq: " << 1000000.0 / delay_us << ", send data every step: " << sendEveryStep << std::endl;
 
 	//parse parameters
 	if (argc < 3) {
-		cerr << "Use: bridge PX4ID ControlCount ControlIndex0 ControlP0 ControlIndex1 ControlP1 ..." << endl;
+		cerr << "-- Use: bridge PX4ID ControlCount ControlIndex0 ControlP0 ControlIndex1 ControlP1 ..." << endl;
         return -1;
 	}
 
-    int px4id = atoi(argv[1]);
+	for(int i=0;i<argc;i++){
+		cout<<*(argv+i)<<endl;
+	}
+
+    	int px4id = atoi(argv[1]);
 	int controlsCount = atoi(argv[2]);
 
 	int *contolsMap = new int[controlsCount];
@@ -119,7 +123,7 @@ int main(int argc, char **argv)
 		controlsP[i] = atof(argv[3 + 2 * i + 1]);
 	}
 
-	cout << controlsCount << endl;
+	cout << "-- The number of control inputs:"<<controlsCount << endl;
 
 	for (int i = 0; i < controlsCount; i++) {
 		cout << "  " << contolsMap[i] <<  "   " << controlsP[i] << endl;
@@ -130,26 +134,26 @@ int main(int argc, char **argv)
 	FGCommunicator fg(&vehicle);
 
 	if (px4.Init(px4id) != 0) {
-		cerr << "Unable to Init PX4 Communication" << endl;
+		cerr << "-- Unable to Init PX4 Communication" << endl;
 		return -1;
 	}
 
 	if (fg.Init(px4id) != 0) {
-		cerr << "Unable to Init FG Communication" << endl;
+		cerr << "-- Unable to Init FG Communication" << endl;
 		return -1;
 	}
 
-    setup_unix_signals();
-    stop=0; //set from Signal handler
-    int FgNonRecieveIters=0;
-	while (stop==0) 
-    {
+    	setup_unix_signals();
+    	stop=0; //set from Signal handler
+    	int FgNonRecieveIters=0;
+	while (stop==0)
+    	{
 
 		bool fgRecved = (fg.Recieve(false) == 1);
 
 		if (fgRecved) {
 			haveFGData = true;
-            FgNonRecieveIters=0;
+            		FgNonRecieveIters=0;
 		}
         else
         {
@@ -159,7 +163,7 @@ int main(int argc, char **argv)
 		if (fgRecved || (haveFGData && sendEveryStep)) {
 			px4.Send(FgNonRecieveIters*delay_us);
 		}
-        
+
         //useless
         //px4.CheckClientReconect();
 
@@ -177,7 +181,7 @@ int main(int argc, char **argv)
 	}
 
 
-	cerr << "Bridge Exiting" << endl;
+	cerr << "-- Bridge Exiting" << endl;
 	fg.Clean();
 	px4.Clean();
 

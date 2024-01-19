@@ -76,7 +76,7 @@ private:
 	int listenMavlinkSock;
 	int px4MavlinkSock;
 
-    const int portBase=4560;
+    	const int portBase=4560;
 
 public:
 	PX4Communicator(VehicleState *v);
