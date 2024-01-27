@@ -93,7 +93,7 @@ void setup_unix_signals()
 
 int main(int argc, char **argv)
 {
-	cerr << "-- I'm Mavlink to FlightGear Bridge" << endl;;
+	cerr << "-- I'm Mavlink to FlightGear Bridge" << endl;
 
 	int delay_us = 2000;
 	bool havePxData = false;
@@ -123,7 +123,7 @@ int main(int argc, char **argv)
 		controlsP[i] = atof(argv[3 + 2 * i + 1]);
 	}
 
-	cout << "-- The number of control inputs:"<<controlsCount << endl;
+	cout << "-- The number of control inputs:"<< controlsCount << endl;
 
 	for (int i = 0; i < controlsCount; i++) {
 		cout << "  " << contolsMap[i] <<  "   " << controlsP[i] << endl;
@@ -144,24 +144,24 @@ int main(int argc, char **argv)
 	}
 
     	setup_unix_signals();
-    	stop=0; //set from Signal handler
-    	int FgNonRecieveIters=0;
-	while (stop==0)
+    	stop = 0; //set from Signal handler
+    	int FgNonRecieveIters = 0;
+	while (stop == 0)
     	{
 
 		bool fgRecved = (fg.Recieve(false) == 1);
 
 		if (fgRecved) {
 			haveFGData = true;
-            		FgNonRecieveIters=0;
+            		FgNonRecieveIters = 0;
 		}
-        else
-        {
-            FgNonRecieveIters++;
-        }
+        	else
+        	{
+            		FgNonRecieveIters++;
+        	}
 
 		if (fgRecved || (haveFGData && sendEveryStep)) {
-			px4.Send(FgNonRecieveIters*delay_us);
+			px4.Send(FgNonRecieveIters * delay_us);
 		}
 
         //useless

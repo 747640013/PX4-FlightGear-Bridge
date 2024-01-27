@@ -130,7 +130,7 @@ void VehicleState::setGPSMsg(const fgOutputData &fgData)
 
 mavlink_hil_sensor_t VehicleState::getSensorMsg(int offset_us)
 {
-    mavlink_hil_sensor_t sensor_msg;
+    	mavlink_hil_sensor_t sensor_msg;
 
 	sensor_msg.time_usec =elapsed_sec * 1e6+offset_us;
 
@@ -153,7 +153,7 @@ mavlink_hil_sensor_t VehicleState::getSensorMsg(int offset_us)
 	sensor_msg.fields_updated = (uint16_t)0x1FFF;
 	sensor_msg.id = 0;
 
-    return sensor_msg;
+    	return sensor_msg;
 }
 
 void VehicleState::setSensor(const fgOutputData &fgData)
@@ -164,8 +164,8 @@ void VehicleState::setSensor(const fgOutputData &fgData)
 	acc[1] = ftToM(fgData.accelY_fps);
 	acc[2] = ftToM(fgData.accelZ_fps);
 
-    gyro = getGyro(fgData);
-    mag_l = getMagneticField(fgData);
+	gyro = getGyro(fgData);
+	mag_l = getMagneticField(fgData);
 
 	temperature = fgData.temperature_degc;
 	abs_pressure = fgData.pressure_inhg * 3386.39 / 100.0;
@@ -178,19 +178,19 @@ void VehicleState::setSensor(const fgOutputData &fgData)
 Vector3d VehicleState::getGyro(const fgOutputData &fgData)
 {
 
-    double dt=fgData.elapsed_sec-lastFGTime;
-    lastFGTime=fgData.elapsed_sec;
+	double dt=fgData.elapsed_sec-lastFGTime;
+	lastFGTime=fgData.elapsed_sec;
 
 	Quaterniond roll(AngleAxisd(degToRad(fgData.roll_deg),Vector3d(1, 0, 0)));
 	Quaterniond pitch(AngleAxisd(degToRad(fgData.pitch_deg),Vector3d(0, 1, 0)));
 	Quaterniond heading(AngleAxisd(degToRad(fgData.heading_deg),Vector3d(0, 0, 1)));
 	Quaterniond bodyRot = heading * pitch * roll;
 
-    Quaterniond diff=bodyRot*lastFGBodyRot.inverse();
-    lastFGBodyRot=bodyRot;
+	Quaterniond diff=bodyRot*lastFGBodyRot.inverse();
+	lastFGBodyRot=bodyRot;
 
-    AngleAxisd rotVct(diff);
-    Vector3d ret=bodyRot.inverse()._transformVector(rotVct.angle()/dt*rotVct.axis());
+	AngleAxisd rotVct(diff);
+	Vector3d ret=bodyRot.inverse()._transformVector(rotVct.angle()/dt*rotVct.axis());
 
 	return ret;
 }

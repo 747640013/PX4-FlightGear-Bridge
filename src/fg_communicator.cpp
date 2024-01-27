@@ -130,8 +130,8 @@ int FGCommunicator::Recieve(bool blocking)
 	int p = poll(&fds[0], 1, (blocking ? -1 : 2));
 
 	if (p < 0) {
-		fprintf(stderr, "FG: Pool error\n");
-        return 0;
+		fprintf(stderr, "-- FG: Pool error\n");
+        	return 0;
 	}
 
 	if (p == 0) {
@@ -142,7 +142,7 @@ int FGCommunicator::Recieve(bool blocking)
 			unsigned int len = sizeof(fg_addr_out);
 
 			if (recvfrom(fgSockOut, (void *)&outputPacket, sizeof(outputPacket), 0, (struct sockaddr *) &fg_addr_out, &len) == -1) {
-				printf("Error recieve packet");
+				printf("-- Error recieve packet");
 				return -1;
 
 			} else {
@@ -176,10 +176,10 @@ int FGCommunicator::Recieve(bool blocking)
 				swap64(&outputPacket.rpm);
 
 				//fprintf(stderr,"FG data recieved\n");
-                if(outputPacket.elapsed_sec>5)
-    				vehicle->setFGData(outputPacket);
-                else
-                    return 0;
+                		if(outputPacket.elapsed_sec>5)
+    					vehicle->setFGData(outputPacket);
+                		else
+					return 0;
 
 				return 1;
 			}

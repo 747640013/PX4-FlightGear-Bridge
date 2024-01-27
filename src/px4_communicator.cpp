@@ -71,7 +71,7 @@ int PX4Communicator::Init(int portOffset)
         std::cerr<<"PX4 Communicator: setsockopt failed: " << strerror(errno) << std::endl;
     }
 
-    //try to close as fast as posible 
+    //try to close as fast as possible
     struct linger nolinger;
     nolinger.l_onoff = 1;
     nolinger.l_linger = 0;
@@ -86,14 +86,14 @@ int PX4Communicator::Init(int portOffset)
     // if the server is suddenly closed, for example, if the robot is deleted in gazebo.
     int socket_reuse = 1;
     result = setsockopt(listenMavlinkSock, SOL_SOCKET, SO_REUSEADDR, &socket_reuse, sizeof(socket_reuse));
-    if (result != 0) 
+    if (result != 0)
     {
          std::cerr<<"PX4 Communicator: setsockopt failed: " << strerror(errno) << std::endl;
     }
 
     // Same as above but for a given port
     result = setsockopt(listenMavlinkSock, SOL_SOCKET, SO_REUSEPORT, &socket_reuse, sizeof(socket_reuse));
-    if (result != 0) 
+    if (result != 0)
     {
         std::cerr<<"PX4 Communicator: setsockopt failed: " << strerror(errno) << std::endl;
     }
@@ -169,7 +169,7 @@ int PX4Communicator::Send(int offset_us)
     uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
     int packetlen;
 
-    mavlink_hil_sensor_t sensor_msg =vehicle->getSensorMsg(offset_us);
+    mavlink_hil_sensor_t sensor_msg = vehicle->getSensorMsg(offset_us);
 
     mavlink_msg_hil_sensor_encode_chan(1, 200, MAVLINK_COMM_0, &msg, &sensor_msg);
     packetlen = mavlink_msg_to_send_buffer(buffer, &msg);
@@ -179,8 +179,8 @@ int PX4Communicator::Send(int offset_us)
         return -1;
     }
 
-    mavlink_hil_gps_t hil_gps_msg=vehicle->hil_gps_msg;
-    hil_gps_msg.time_usec+=offset_us;
+    mavlink_hil_gps_t hil_gps_msg = vehicle->hil_gps_msg;
+    hil_gps_msg.time_usec += offset_us;
 
     mavlink_msg_hil_gps_encode_chan(1, 200, MAVLINK_COMM_0, &msg, &hil_gps_msg);
     packetlen = mavlink_msg_to_send_buffer(buffer, &msg);
@@ -192,8 +192,8 @@ int PX4Communicator::Send(int offset_us)
 
 
     mavlink_raw_rpm_t rpmmessage;
-    rpmmessage.index=0;
-    rpmmessage.frequency=vehicle->rpm;
+    rpmmessage.index = 0;
+    rpmmessage.frequency = vehicle->rpm;
     mavlink_msg_raw_rpm_encode_chan(1, 200, MAVLINK_COMM_0, &msg, &rpmmessage);
     packetlen = mavlink_msg_to_send_buffer(buffer, &msg);
     if(send(px4MavlinkSock, buffer, packetlen, 0)!=packetlen)

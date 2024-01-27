@@ -138,19 +138,19 @@ private:
 	double abs_pressure_nois;
 	double diff_pressure_nois;
 
-    //sensor state
-    double elapsed_sec;
-    Vector3d acc;
-    Vector3d gyro;
-    Vector3d mag_l;
-    double temperature;
-    double abs_pressure;
-    double pressure_alt;
-    double diff_pressure;
+	//sensor state
+	double elapsed_sec;
+	Vector3d acc;
+	Vector3d gyro;
+	Vector3d mag_l;
+	double temperature;
+	double abs_pressure;
+	double pressure_alt;
+	double diff_pressure;
 
 
-    Quaterniond lastFGBodyRot;
-    double lastFGTime;
+	Quaterniond lastFGBodyRot;
+	double lastFGTime;
 
 
 };
