@@ -109,7 +109,7 @@ public:
 	~VehicleState();
 	void setFGData(const fgOutputData &fgData);
 	void setPXControls(const mavlink_hil_actuator_controls_t &controls);
-    mavlink_hil_sensor_t getSensorMsg(int offset_us);
+    	mavlink_hil_sensor_t getSensorMsg(int offset_us);
 
 private:
 	double ftToM(double ft);

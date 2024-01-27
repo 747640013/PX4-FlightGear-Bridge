@@ -74,7 +74,7 @@ void setup_unix_signals()
 
     	//shut down by sigTerm
     	if (sigaction(SIGTERM, &term, nullptr))
-    	std::cerr<<"Error when setting SIGTERM handler" <<std::endl;
+    	std::cerr<<"-- Error when setting SIGTERM handler" <<std::endl;
 
     	//ignore pipe error -rather handle it by if in code
     	signal(SIGPIPE, SIG_IGN);
@@ -86,7 +86,7 @@ void setup_unix_signals()
 	term2.sa_flags |= SA_RESTART;
 
 	if (sigaction(SIGINT, &term2, nullptr))
-	std::cerr<<"Error when setting SIGINT handler" <<std::endl;
+	std::cerr<<"-- Error when setting SIGINT handler" <<std::endl;
 
 
 }

@@ -74,7 +74,7 @@ int FGCommunicator::Init(int portOffset)
 
 	//bind socket to port
 	if (bind(fgSockOut, (struct sockaddr *) &my_addr_out, sizeof(my_addr_out)) == -1) {
-		printf("Cannot bind socket");
+		printf("-- Cannot bind socket");
 		return -1;
 	}
 

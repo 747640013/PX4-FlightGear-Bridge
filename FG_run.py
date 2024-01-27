@@ -173,7 +173,7 @@ baseparameters = [
 ]
 
 #with FG output
-commnad=fgbin+" "+" ".join(baseparameters)+" "+fgargsex+" "+fgargsadd+" & echo $! > /tmp/px4fgfspid_"+str(px4id)
+command=fgbin+" "+" ".join(baseparameters)+" "+fgargsex+" "+fgargsadd+" & echo $! > /tmp/px4fgfspid_"+str(px4id)
 
-print(commnad)
-os.system(commnad)
+print(command)
+os.system(command)

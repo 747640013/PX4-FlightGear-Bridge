@@ -75,8 +75,8 @@ private:
 
 	double *sendBuff;
 
-    const int FGOutPortBase=15200;
-    const int FGInPortBase=15300;
+    	const int FGOutPortBase = 15200;
+    	const int FGInPortBase = 15300;
 
 	void swap64(void *p);
 public:
