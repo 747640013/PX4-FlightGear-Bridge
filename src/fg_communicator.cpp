@@ -112,7 +112,7 @@ int FGCommunicator::Send()
 
 	if (sendto(fgSockIn, (void *)(sendBuff), size, 0,
 		   (struct sockaddr *) &fg_addr_in, sizeof(fg_addr_in)) != size) {
-		printf("Error send packet");
+		printf("-- Error send packet");
 		return -1;
 	}
 

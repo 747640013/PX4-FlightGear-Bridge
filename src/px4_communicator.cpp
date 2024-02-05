@@ -51,7 +51,6 @@ PX4Communicator::PX4Communicator(VehicleState * v)
 
 int PX4Communicator::Init(int portOffset)
 {
-
     memset((char *) &simulator_mavlink_addr, 0, sizeof(px4_mavlink_addr));
     memset((char *) &px4_mavlink_addr, 0, sizeof(px4_mavlink_addr));
     simulator_mavlink_addr.sin_family = AF_INET;
@@ -63,7 +62,7 @@ int PX4Communicator::Init(int portOffset)
         std::cerr<<"PX4 Communicator: Creating TCP socket failed: " << strerror(errno) << std::endl;
     }
 
-    //do not accumulate messages by waiting for ACK
+    // do not accumulate messages by waiting for ACK
     int yes = 1;
     int result = setsockopt(listenMavlinkSock, IPPROTO_TCP, TCP_NODELAY, &yes, sizeof(yes));
     if (result != 0)
@@ -71,7 +70,7 @@ int PX4Communicator::Init(int portOffset)
         std::cerr<<"PX4 Communicator: setsockopt failed: " << strerror(errno) << std::endl;
     }
 
-    //try to close as fast as possible
+    // try to close as fast as possible
     struct linger nolinger;
     nolinger.l_onoff = 1;
     nolinger.l_linger = 0;
@@ -207,47 +206,46 @@ int PX4Communicator::Send(int offset_us)
 
 int PX4Communicator::Recieve(bool blocking)
 {
+    mavlink_message_t msg;
+    uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
 
-        mavlink_message_t msg;
-        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+    struct pollfd fds[1] = {};
+    fds[0].fd = px4MavlinkSock;
+    fds[0].events = POLLIN;
 
-        struct pollfd fds[1] = {};
-        fds[0].fd = px4MavlinkSock;
-        fds[0].events = POLLIN;
+    int p=poll(&fds[0], 1, (blocking?-1:2));
+    if(p < 0)
+        std::cerr<<"PX4 Communicator: PX4 Poll error\n" << std::endl;
 
-        int p=poll(&fds[0], 1, (blocking?-1:2));
-        if(p<0)
-            std::cerr<<"PX4 Communicator: PX4 Pool error\n" << std::endl;
-
-        if(p==0)
+    if(p == 0)
+    {
+        //std::cerr<<"PX4 Communicator:No PX data" <<std::endl;
+    }
+    else
+    {
+        if(fds[0].revents & POLLIN)
         {
-            //std::cerr<<"PX4 Communicator:No PX data" <<std::endl;
-        }
-        else
-        {
-            if(fds[0].revents & POLLIN)
+            unsigned int slen=sizeof(px4_mavlink_addr);
+            unsigned int len = recvfrom(px4MavlinkSock, buffer, sizeof(buffer), 0, (struct sockaddr *)&px4_mavlink_addr, &slen);
+            if (len > 0)
             {
-                unsigned int slen=sizeof(px4_mavlink_addr);
-                unsigned int len = recvfrom(px4MavlinkSock, buffer, sizeof(buffer), 0, (struct sockaddr *)&px4_mavlink_addr, &slen);
-                if (len > 0)
+                mavlink_status_t status;
+                for (unsigned i = 0; i < len; ++i)
                 {
-                    mavlink_status_t status;
-                    for (unsigned i = 0; i < len; ++i)
+                    if (mavlink_parse_char(MAVLINK_COMM_0, buffer[i], &msg, &status))
                     {
-                      if (mavlink_parse_char(MAVLINK_COMM_0, buffer[i], &msg, &status))
-                      {
-                            if(msg.msgid==MAVLINK_MSG_ID_HIL_ACTUATOR_CONTROLS)
-                            {
-                                    mavlink_hil_actuator_controls_t controls;
-                                    mavlink_msg_hil_actuator_controls_decode(&msg, &controls);
-                                    vehicle->setPXControls(controls);
-                                    return 1;
-                            }
-                      }
+                        if(msg.msgid==MAVLINK_MSG_ID_HIL_ACTUATOR_CONTROLS)
+                        {
+                            mavlink_hil_actuator_controls_t controls;
+                            mavlink_msg_hil_actuator_controls_decode(&msg, &controls);
+                            vehicle->setPXControls(controls);
+                            return 1;
+                        }
                     }
                 }
             }
         }
+    }
 
     return 0;
 }

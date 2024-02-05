@@ -105,7 +105,7 @@ int main(int argc, char **argv)
 	//parse parameters
 	if (argc < 3) {
 		cerr << "-- Use: bridge PX4ID ControlCount ControlIndex0 ControlP0 ControlIndex1 ControlP1 ..." << endl;
-        return -1;
+        	return -1;
 	}
 
 	for(int i=0;i<argc;i++){
@@ -115,8 +115,8 @@ int main(int argc, char **argv)
     	int px4id = atoi(argv[1]);
 	int controlsCount = atoi(argv[2]);
 
-	int *contolsMap = new int[controlsCount];
-	double *controlsP = new double[controlsCount];
+	int * contolsMap = new int[controlsCount];
+	double * controlsP = new double[controlsCount];
 
 	for (int i = 0; i < controlsCount; i++) {
 		contolsMap[i] = atoi(argv[3 + 2 * i]);
