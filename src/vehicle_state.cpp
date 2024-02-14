@@ -56,7 +56,14 @@ VehicleState::VehicleState(int cCount, const int *cMap, const double *cP)
 	this->controlsMap = cMap;
 	this->controlsP = cP;
 
+
 	this->FGControls = new double[controlsCount];
+
+	last_state_ = false;
+	// 初始化所有控制量，防止未定义行为
+	for(int i=0;i<controlsCount;i++){
+		FGControls[i] = 0;
+	}
 
 	standard_normal_distribution_ = std::normal_distribution<double>(0.0f, 1.0f);
 
@@ -78,12 +85,31 @@ void VehicleState::setPXControls(const mavlink_hil_actuator_controls_t &controls
 {
 	bool armed = (controls.mode & MAV_MODE_FLAG_SAFETY_ARMED);
 
-	for (int c = 0; c < controlsCount; c++) {
-		if (armed) {
-			FGControls[c] = controlsP[c] * (double)controls.controls[controlsMap[c]];
-
-		} else {
-			FGControls[c] = 0;
+	// 通道4和5为相应解/上锁的指令与modle.json对应
+	if(armed != last_state_){
+		if(armed){
+			FGControls[4]=1;
+			FGControls[5]=0;
+		}else{
+			FGControls[4]=0;
+			FGControls[5]=1;
+		}
+		last_state_ = armed;
+	}else{
+		for (int c = 0; c < controlsCount; c++) {
+			if (armed) {
+				if(c==4||c==5){
+					FGControls[c] = 0;
+					continue;
+				}
+				FGControls[c] = controlsP[c] * (double)controls.controls[controlsMap[c]];
+			} else {
+				if(c==4||c==5){
+					FGControls[c] = 0;
+					continue;
+				}
+				FGControls[c] = 0;
+			}
 		}
 	}
 }

@@ -101,6 +101,7 @@ public:
 	double rpm;
 	double *FGControls;
 	int controlsCount;
+	bool last_state_;
 
 	std::default_random_engine random_generator_;
 	std::normal_distribution<double> standard_normal_distribution_;
