@@ -15,10 +15,10 @@ add_executable(flightgear_bridge
 			   src/vehicle_state.cpp
 			   src/geo_mag_declination.cpp
 			   )
-
 target_include_directories(flightgear_bridge
                 BEFORE
-                PUBLIC ${MAVLINK_INCLUDE_DIRS})
+                PUBLIC ${MAVLINK_INCLUDE_DIRS}
+		)
 
 target_compile_options(flightgear_bridge PUBLIC -g -fexceptions -Wno-cast-align -Wno-address-of-packed-member)
 target_link_libraries(flightgear_bridge Eigen3::Eigen)

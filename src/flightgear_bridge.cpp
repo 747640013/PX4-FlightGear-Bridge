@@ -79,7 +79,6 @@ void setup_unix_signals()
     	//ignore pipe error -rather handle it by if in code
     	signal(SIGPIPE, SIG_IGN);
 
-
     	struct sigaction term2;
     	term2.sa_handler = intSignalHandler;
     	sigemptyset(&term2.sa_mask);
@@ -93,7 +92,7 @@ void setup_unix_signals()
 
 int main(int argc, char **argv)
 {
-	cerr << "-- I'm Mavlink to FlightGear Bridge" << endl;
+	cerr<<"-- I'm Mavlink to FlightGear Bridge"<<endl;
 
 	int delay_us = 2000;
 	bool havePxData = false;
