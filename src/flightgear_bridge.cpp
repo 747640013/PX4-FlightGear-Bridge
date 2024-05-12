@@ -62,7 +62,7 @@ void termSignalHandler(int unused)
 
 void intSignalHandler(int unused)
 {
-   	std::cerr<<"-- Bridge: Signal SIGINT recieve" <<std::endl;
+   	std::cerr<<"-- Bridge: Signal SIGINT receive" <<std::endl;
 }
 
 void setup_unix_signals()
