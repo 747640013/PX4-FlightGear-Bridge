@@ -119,7 +119,7 @@ int FGCommunicator::Send()
 	return 0;
 }
 
-int FGCommunicator::Recieve(bool blocking)
+int FGCommunicator::Receive(bool blocking)
 {
 
 	struct fgOutputData outputPacket;

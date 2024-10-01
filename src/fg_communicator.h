@@ -75,18 +75,27 @@ private:
 
 	double *sendBuff;
 
+	/*Flightgear传感器数据输出端口*/
     	const int FGOutPortBase = 15200;
+	/*PX4控制量输入端口*/
     	const int FGInPortBase = 15300;
 
+	/* 大小端转换函数 */
 	void swap64(void *p);
 public:
 	FGCommunicator(VehicleState *v);
 	~FGCommunicator();
+
+	/* 创建数据交互套接字 */
 	int Init(int portOffset);
+
 	int Clean();
 
+	/*向FG发送控制指令*/
 	int Send();
-	int Recieve(bool blocking);
+
+	/* 接收FG传感器数据，并进行大小端转换*/
+	int Receive(bool blocking);
 
 };
 

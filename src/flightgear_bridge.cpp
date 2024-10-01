@@ -148,7 +148,7 @@ int main(int argc, char **argv)
 	while (stop == 0)
     	{
 
-		bool fgRecved = (fg.Recieve(false) == 1);
+		bool fgRecved = (fg.Receive(false) == 1);
 
 		if (fgRecved) {
 			haveFGData = true;

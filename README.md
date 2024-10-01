@@ -1,7 +1,5 @@
 # FlightGear Bridge
 
-![Build Tests](https://github.com/PX4/PX4-FlightGear-Bridge/workflows/Build%20Tests/badge.svg)
-
 The FlightGear alternative to the current PX4's mainstream simulator Gazebo. FlightGear expands the simulation possibilities through advanced weather simulations.
 
 ![FlightGear SITL connected with PX4 and QGroundControl](art/screenshot.png)
@@ -14,9 +12,9 @@ It connects to FG (over UDP generic protocol) and transforms the data to TCP MAV
 
 #### Install
 
-1) Install FlightGear. In Ubuntu You can use install the last stable FG from the [PPA repository](https://launchpad.net/~saiarcot895/+archive/ubuntu/flightgear) by following commands: ```sudo add-apt-repository -y -u ppa:saiarcot895/flightgear``` and ```sudo DEBIAN_FRONTEND=noninteractive apt-get -y --quiet install flightgear```
-* Alternatively use the [TF modified FlightGear](https://github.com/ThunderFly-aerospace/FlightGear/wiki) for advanced features of the models.
-3) Set write permissions to the `Protocols` folder in the FlightGear installation directory. On Ubuntu run ```sudo chmod a+w /usr/share/games/flightgear/Protocol ```
+1) Install FlightGear. In Ubuntu You can use install the last stable FG from the [PPA repository](https://launchpad.net/~saiarcot895/+archive/ubuntu/flightgear) by following commands:<br>```sudo add-apt-repository -y -u ppa:saiarcot895/flightgear```and```sudo DEBIAN_FRONTEND=noninteractive apt-get -y --quiet install flightgear```
+2) Alternatively use the [TF modified FlightGear](https://github.com/ThunderFly-aerospace/FlightGear/wiki) for advanced features of the models.
+3) Set write permissions to the `Protocols` folder in the FlightGear installation directory. On Ubuntu run<br>```sudo chmod a+w /usr/share/games/flightgear/Protocol ```
 
 #### Startup
 

@@ -109,7 +109,10 @@ public:
 	VehicleState(int cCount, const int *cMap, const double *cP);
 	~VehicleState();
 	void setFGData(const fgOutputData &fgData);
+
+	/*关键函数，PX4输出转换为FG指令*/
 	void setPXControls(const mavlink_hil_actuator_controls_t &controls);
+
     	mavlink_hil_sensor_t getSensorMsg(int offset_us);
 
 private:
