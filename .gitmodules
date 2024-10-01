@@ -13,6 +13,3 @@
 [submodule "models/bo105"]
 	path = models/bo105
 	url = git@github.com:747640013/bo105.git
-[submodule "models/Alouette-III"]
-	path = models/Alouette-III
-	url = git@github.com:747640013/Alouette-III.git
