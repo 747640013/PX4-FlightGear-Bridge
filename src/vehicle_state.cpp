@@ -104,6 +104,11 @@ void VehicleState::setPXControls(const mavlink_hil_actuator_controls_t &controls
 				}
 				FGControls[c] = controlsP[c] * (double)controls.controls[controlsMap[c]];
 				cout<<"FGControls["<<c<<"]="<<FGControls[c]<<endl;
+				for(int i=0;i<16;++i){
+					if(i)cout<<" ";
+					cout<<controls.controls[i];
+				}
+				cout<<endl;
 			} else {
 				if(c==4||c==5){
 					FGControls[c] = 0;

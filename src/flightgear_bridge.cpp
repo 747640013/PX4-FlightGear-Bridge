@@ -107,18 +107,23 @@ int main(int argc, char **argv)
         	return -1;
 	}
 
-	for(int i=0;i<argc;i++){
-		cout<<*(argv+i)<<endl;
-	}
+	// for(int i=0;i<argc;i++){
+	// 	cout<<*(argv+i)<<endl;
+	// }
 
     	int px4id = atoi(argv[1]);
+
+	/*获取控制通道数量*/
 	int controlsCount = atoi(argv[2]);
 
 	int * contolsMap = new int[controlsCount];
 	double * controlsP = new double[controlsCount];
 
+
 	for (int i = 0; i < controlsCount; i++) {
+		/*获取控制通道映射*/
 		contolsMap[i] = atoi(argv[3 + 2 * i]);
+		/*正负方向*/
 		controlsP[i] = atof(argv[3 + 2 * i + 1]);
 	}
 

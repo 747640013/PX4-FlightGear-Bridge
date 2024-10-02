@@ -131,7 +131,9 @@ private:
 
 	double lastTime;
 
+	/*控制量输出通道*/
 	const int *controlsMap;
+	/*方向映射，-1负方向 1正方向*/
 	const double *controlsP;
 
 	double acc_nois;
