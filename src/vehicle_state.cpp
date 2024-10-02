@@ -43,7 +43,7 @@
 #include "vehicle_state.h"
 
 #include "geo_mag_declination.h"
-
+#include <math.h>
 #include <iostream>
 #include <iomanip>
 
@@ -96,28 +96,29 @@ void VehicleState::setPXControls(const mavlink_hil_actuator_controls_t &controls
 		}
 		last_state_ = armed;
 	}else{
-		for (int c = 0; c < controlsCount; c++) {
-			if (armed) {
-				if(c==4||c==5){
-					FGControls[c] = 0;
-					continue;
-				}
-				FGControls[c] = controlsP[c] * (double)controls.controls[controlsMap[c]];
-				cout<<"FGControls["<<c<<"]="<<FGControls[c]<<endl;
-				for(int i=0;i<16;++i){
-					if(i)cout<<" ";
-					cout<<controls.controls[i];
-				}
-				cout<<endl;
-			} else {
-				if(c==4||c==5){
-					FGControls[c] = 0;
-					continue;
-				}
-				FGControls[c] = 0;
+		if (armed) {
+				FGControls[0]=(-(double)controls.controls[2]+(double)controls.controls[4])/sqrt(3.0);
+				FGControls[1]=-((double)controls.controls[2]-2*(double)controls.controls[3]+(double)controls.controls[4])/3.0;
+				FGControls[2]=(double)controls.controls[1];
+				FGControls[3]=((double)controls.controls[2]+(double)controls.controls[3]+(double)controls.controls[4])/3.0;
+				FGControls[4] = 0;
+				FGControls[5] = 0;
+
 			}
-		}
+		 else {for(int i=0;i<controlsCount;i++)
+			FGControls[i]=0;
+			}
 	}
+	// printf("thr=%f\n",FGControls[3]);
+	// printf("roll=%f\n",FGControls[0]);
+	// printf("pitch=%f\n",FGControls[1]);
+	// printf("yaw=%f\n",FGControls[2]);
+	// double collective_pitch= ((double)controls.controls[2]+(double)controls.controls[3]+(double)controls.controls[4])/3.0;
+	// printf("collective=%f\n",collective_pitch);
+	// double pitch= ((double)controls.controls[2]-2*(double)controls.controls[3]+(double)controls.controls[4])/3.0;
+	// printf("pitch=%f\n",pitch);
+	// double roll= (-(double)controls.controls[2]+(double)controls.controls[4])/sqrt(3.0);
+	// printf("roll=%f\n",roll);
 }
 
 
