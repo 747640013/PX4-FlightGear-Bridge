@@ -9,12 +9,14 @@ export FG_BINARY=fgfs
 export FG_MODELS_DIR=${MODEL_PATH}
 export FG_ARGS_EX="--allow-nasal-read=${MODEL_PATH} \
                    --callsign=TF-A2 \
-                   --offset-distance=1 \
+                   --offset-distance=0.001 \
                    --offset-azimuth=90 \
                    --ignore-autosave \
                    --disable-hold-short \
                    --prop:input/joysticks/js=0 \
                    --prop:/sim/rendering/static-lod/aimp-range-mode-distance=true \
+                   --prop:/sim/rendering/static-lod/aimp-bare=10000 \
+                   --prop:/sim/rendering/static-lod/aimp-detailed=1000 \
                    --disable-mouse-pointer \
                    --multiplay=out,10,127.0.0.1,5001 \
                    --multiplay=in,10,127.0.0.1,5000"
@@ -23,3 +25,6 @@ export PX4_ID=1
 
 cd ${FIRMWARE_DIR}
 make px4_sitl_nolockstep flightgear_bo105_multi
+
+# 去掉参数
+#                   --prop:/sim/rendering/static-lod/aimp-range-mode-distance=true \

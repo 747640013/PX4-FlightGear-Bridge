@@ -74,7 +74,7 @@ fgmodelsdir=os.getenv("FG_MODELS_DIR")
 if fgmodelsdir is None:
     fgmodelsdir='./models'
 
-#get FGFS EXTRA PARAMS
+#get FGFS EXTRA PARAMS  多机使用
 fgargsex=os.getenv("FG_ARGS_EX")
 print(fgargsex)
 if fgargsex is None:
@@ -139,30 +139,30 @@ baseparameters = [
     "--prop:/controls/engines/engine/magnetos=1",
     "--prop:/rotors/main/rpm=442",
     "--prop:/rotors/tail/rpm=2219",
-#    "--enable-terrasync",
-#    "--timeofday=noon",
+    "--enable-terrasync",
+    "--timeofday=noon",
 #    "--disable-sound",
     "--telnet="+str(15400+px4id),
     "--generic=socket,out,100,127.0.0.1,"+str(15200+px4id)+",udp,FGtoPX4",
     "--generic=socket,in,100,,"+str(15300+px4id)+",udp,PX4toFG",
 #    "--model-hz=120",
-#    "--disable-random-objects",
+    "--disable-random-objects",
     "--prop:/sim/rendering/texture-compression=off",
     "--prop:/sim/rendering/quality-level=0",
     "--prop:/sim/rendering/shaders/quality-level=0",
-#    "--disable-ai-traffic",
+    "--disable-ai-traffic",
     "--prop:/sim/ai/enabled=0",
     "--prop:/sim/rendering/random-vegetation=0",
     "--prop:/sim/rendering/random-buildings=0",
-#    "--disable-specular-highlight",
-#    "--disable-ai-models",
-#    "--disable-clouds",
-#    "--disable-clouds3d",
-#    "--fog-fastest",
-#    "--visibility=2000",
+    "--disable-specular-highlight",
+    "--disable-ai-models",
+    "--disable-clouds",
+    "--disable-clouds3d",
+    "--fog-fastest",
+    "--visibility=2000",
     "--model-hz=500",
-#    "--disable-distance-attenuation",
-#    "--disable-real-weather-fetch",
+    "--disable-distance-attenuation",
+    "--disable-real-weather-fetch",
     "--prop:/sim/rendering/particles=0",
     "--prop:/sim/rendering/multi-sample-buffers=1",
     "--prop:/sim/rendering/multi-samples=2",
@@ -170,9 +170,9 @@ baseparameters = [
     "--prop:/sim/rendering/draw-mask/aircraft=true",
     "--prop:/sim/rendering/draw-mask/models=true",
     "--prop:/sim/rendering/draw-mask/terrain=true",
-#    "--disable-random-vegetation",
-#    "--disable-random-buildings",
-#    "--disable-horizon-effect"
+    "--disable-random-vegetation",
+    "--disable-random-buildings",
+    "--disable-horizon-effect"
 ]
 
 #with FG output
