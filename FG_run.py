@@ -136,9 +136,9 @@ shutil.copy('px4bridge.xml',protocols+'/FGtoPX4.xml' )
 baseparameters = [
     "--aircraft=" + model,
     "--fg-aircraft=" + fgmodelsdir,
-    "--prop:/controls/engines/engine/magnetos=1",
-    "--prop:/rotors/main/rpm=442",
-    "--prop:/rotors/tail/rpm=2219",
+#    "--prop:/controls/engines/engine/magnetos=1",
+    "--prop:/rotors/main/rpm=250",
+    "--prop:/rotors/tail/rpm=750",
     "--enable-terrasync",
     "--timeofday=noon",
 #    "--disable-sound",

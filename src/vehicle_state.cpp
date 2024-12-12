@@ -97,7 +97,7 @@ void VehicleState::setPXControls(const mavlink_hil_actuator_controls_t &controls
 		last_state_ = armed;
 	}else{
 		if (armed) {
-				FGControls[0]=(-(double)controls.controls[2]+(double)controls.controls[4])/sqrt(3.0);
+		                FGControls[0]=(-(double)controls.controls[2]+(double)controls.controls[4])/sqrt(3.0); /*总距*/
 				FGControls[1]=-((double)controls.controls[2]-2*(double)controls.controls[3]+(double)controls.controls[4])/3.0;
 				FGControls[2]=(double)controls.controls[1];
 				FGControls[3]=((double)controls.controls[2]+(double)controls.controls[3]+(double)controls.controls[4])/3.0;
@@ -109,7 +109,7 @@ void VehicleState::setPXControls(const mavlink_hil_actuator_controls_t &controls
 			FGControls[i]=0;
 			}
 	}
-	// printf("thr=%f\n",FGControls[3]);
+	// printf("thr=%f\n",FGControls[3]);  // 总距
 	// printf("roll=%f\n",FGControls[0]);
 	// printf("pitch=%f\n",FGControls[1]);
 	// printf("yaw=%f\n",FGControls[2]);

@@ -7,6 +7,7 @@ MODEL_PATH=${ROOT_DIR}/models
 
 export FG_BINARY=fgfs
 export FG_MODELS_DIR=${MODEL_PATH}
+echo ${FG_MODELS_DIR}
 export FG_ARGS_EX="--allow-nasal-read=${MODEL_PATH} \
                    --callsign=TF-A2 \
                    --offset-distance=0.001 \
@@ -18,13 +19,14 @@ export FG_ARGS_EX="--allow-nasal-read=${MODEL_PATH} \
                    --prop:/sim/rendering/static-lod/aimp-bare=10000 \
                    --prop:/sim/rendering/static-lod/aimp-detailed=1000 \
                    --disable-mouse-pointer \
-                   --multiplay=out,10,127.0.0.1,5001 \
-                   --multiplay=in,10,127.0.0.1,5000"
+                   --multiplay=out,20,127.0.0.1,5001 \
+                   --multiplay=in,20,127.0.0.1,5000"
+
 export PX4_ID=1
 
 
 cd ${FIRMWARE_DIR}
-make px4_sitl_nolockstep flightgear_bo105_multi
+make px4_sitl_nolockstep flightgear_bo105
 
 # 去掉参数
 #                   --prop:/sim/rendering/static-lod/aimp-range-mode-distance=true \

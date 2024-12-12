@@ -10,7 +10,7 @@ export FG_BINARY=fgfs
 export FG_MODELS_DIR=${MODEL_PATH}
 export FG_ARGS_EX="--allow-nasal-read=${MODEL_PATH} \
                    --callsign=TF-A1 \
-                   --offset-distance=-0.003 \
+                   --offset-distance=0 \
                    --offset-azimuth=90 \
                    --ignore-autosave \
                    --disable-hold-short \
@@ -22,8 +22,9 @@ export FG_ARGS_EX="--allow-nasal-read=${MODEL_PATH} \
                    --multiplay=out,10,127.0.0.1,5000 \
                    --multiplay=in,10,127.0.0.1,5001"
 
+
 export PX4_ID=0
 
 
 cd ${FIRMWARE_DIR}
-make px4_sitl_nolockstep flightgear_bo105_multi
+make px4_sitl_nolockstep flightgear_bo105
