@@ -12,4 +12,4 @@
 	url = https://github.com/ThunderFly-aerospace/FlightGear-TF-G2.git
 [submodule "models/bo105"]
 	path = models/bo105
-	url = git@github.com:747640013/bo105.git
+	url = https://github.com/747640013/bo105.git
