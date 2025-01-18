@@ -4,7 +4,7 @@ The FlightGear alternative to the current PX4's mainstream simulator Gazebo. Fli
 
 ![FlightGear SITL connected with PX4 and QGroundControl](art/screenshot.png)
 
-This stand-alone application adds the possibility of the use of the FlightGear simulator. The system was tested on the [Rascal airplane](https://github.com/ThunderFly-aerospace/FlightGear-Rascal) and [TF-G1](https://github.com/ThunderFly-aerospace/FlightGear-TF-G1) autogyro simulation models.
+This stand-alone application adds the possibility of the use of the FlightGear simulator. The system was only tested on the [bo105](https://github.com/747640013/bo105.git) helicopter simulation models.
 
 It connects to FG (over UDP generic protocol) and transforms the data to TCP MAVlink packets for the PX4 stack.
 
@@ -12,9 +12,15 @@ It connects to FG (over UDP generic protocol) and transforms the data to TCP MAV
 
 #### Install
 
-1) Install FlightGear. In Ubuntu You can use install the last stable FG from the [PPA repository](https://launchpad.net/~saiarcot895/+archive/ubuntu/flightgear) by following commands:<br>```sudo add-apt-repository -y -u ppa:saiarcot895/flightgear```and<br>```sudo DEBIAN_FRONTEND=noninteractive apt-get -y --quiet install flightgear```
-2) Alternatively use the [TF modified FlightGear](https://github.com/ThunderFly-aerospace/FlightGear/wiki) for advanced features of the models.
-3) Set write permissions to the `Protocols` folder in the FlightGear installation directory. On Ubuntu run<br>```sudo chmod a+w /usr/share/games/flightgear/Protocol ```
+1) Install FlightGear. In Ubuntu You can use install the last stable FG from the [PPA repository](https://launchpad.net/~saiarcot895/+archive/ubuntu/flightgear) by following commands:
+
+	```sudo add-apt-repository -y -u ppa:saiarcot895/flightgear```
+
+	```sudo DEBIAN_FRONTEND=noninteractive apt-get -y --quiet install flightgear```
+2) Set write permissions to the `Protocols` folder in the FlightGear installation directory.
+On Ubuntu run
+
+	```sudo chmod a+w /usr/share/games/flightgear/Protocol ```
 
 #### Startup
 
@@ -25,28 +31,12 @@ General usage consists following steps
 3) Wait until FlightGear fully loads.
 
 
-##### Rascal airplane
+##### Helicopter bo105
 
 1) Open [QgroundControl](http://qgroundcontrol.com/)
-2) In PX4Firmware folder run: ```make px4_sitl_nolockstep flightgear_rascal``` for plane with combustion engine. Alternatively, you could use  ```make px4_sitl_nolockstep flightgear_rascal-electric``` for the plane with an electric engine model.
-3) Wait until FlightGear fully loads.
+2) In PX4Firmware folder run:
 
-##### TF-G1 autogyro
-
-1) Open [QgroundControl](http://qgroundcontrol.com/)
-2) In PX4Firmware folder run: ```make px4_sitl_nolockstep flightgear_tf-g1``` for [TF-G1 autogyro](https://github.com/ThunderFly-aerospace/TF-G1).
-3) Wait until FlightGear fully loads.
-
-##### TF-G2 autogyro
-
-1) Open [QgroundControl](http://qgroundcontrol.com/)
-2) In PX4Firmware folder run: ```make px4_sitl_nolockstep flightgear_tf-g2``` for [TF-G2 autogyro](https://github.com/ThunderFly-aerospace/TF-G2).
-3) Wait until FlightGear fully loads.
-
-##### TF-R1 rover
-
-1) Open [QgroundControl](http://qgroundcontrol.com/)
-2) In PX4Firmware folder run: ```make px4_sitl_nolockstep flightgear_tf-r1``` for [TF-R1 ground rover](https://github.com/ThunderFly-aerospace/TF-R1).
+	```make px4_sitl_nolockstep flightgear_bo105```
 3) Wait until FlightGear fully loads.
 
 
