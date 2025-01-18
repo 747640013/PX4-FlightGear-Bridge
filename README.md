@@ -62,7 +62,7 @@ FlightGear Bridge and starting script now support multiple instances of PX4. FG\
 If you want to use a currently unsupported FlightGear aircraft with PX4, you need:
 1) Add the FlightGear aircraft to ```models``` subdirectory, or to another MODEL PATH searched by FG
 2) In ```models``` subdirectory create ```.json``` file.
-3) Add model into PX4 make system in file ```src/modules/simulation/simulator_mavlink/sitl_target_flightgear.cmake```(v1.15-alpha) with same name as json file in previous step.
+3) Add model into PX4 make system in file ```src/modules/simulation/simulator_mavlink/sitl_targets_flightgear.cmake```(v1.15-alpha) with same name as json file in previous step.
 4) You probably will need a new PX4 startup script for your vehicle. (vehicle name is the same name as the name of .json file)
 
 If you want to test another plane model, you can switch the Rascal model to another type by editing the file ```models/rascal.json```.  For example substitute ```Rascal110-YASim``` by ```Rascal110-JSBSim```, or chosen aircraft name.
